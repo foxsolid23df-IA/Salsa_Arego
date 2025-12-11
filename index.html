@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salsas Arego - Menú Virtual</title>
+    <meta name="description" content="Menú oficial de Salsas Arego. Sabores caseros y familiares.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="img/logo.jpg" alt="Familia Arego" class="logo-img" onerror="this.src='https://via.placeholder.com/150'">
+        </div>
+        <h1>Salsas Arego</h1>
+        <p class="slogan">Salsa Casera con el toque familiar</p>
+    </header>
+
+    <main class="container">
+
+        <section id="catalogo">
+            <h2 class="section-title">Nuestros Sabores</h2>
+            <div id="menu-container">
+                <p style="text-align:center">Cargando menú...</p>
+            </div>
+        </section>
+
+        <section id="galeria">
+            <h2 class="section-title">Antojos Arego</h2>
+            <p class="text-center">Así disfrutan nuestros clientes:</p>
+            <div class="galeria-grid">
+                <img src="https://via.placeholder.com/300x300/ffcc00/fff?text=Tacos" class="galeria-item" alt="Tacos con salsa">
+                <img src="https://via.placeholder.com/300x300/green/fff?text=Huevos" class="galeria-item" alt="Huevos al gusto">
+                <img src="https://via.placeholder.com/300x300/red/fff?text=Carne" class="galeria-item" alt="Carne asada">
+                <img src="https://via.placeholder.com/300x300/orange/fff?text=Botana" class="galeria-item" alt="Botana">
+            </div>
+        </section>
+
+        <section class="upload-section">
+            <div class="upload-content">
+                <i class="fas fa-camera-retro upload-icon"></i>
+                <h3>¡Queremos ver tu platillo!</h3>
+                <p>Envíanos tu foto para aparecer en nuestra galería.</p>
+                <button class="btn-pedir btn-upload" onclick="enviarFoto()">
+                    Subir mi Foto <i class="fab fa-whatsapp"></i>
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="social-bar">
+        <p>Síguenos para promociones</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2025 Salsas Arego</p>
+    </footer>
+
+    <a href="#" onclick="contactarGeneral()" class="float-wa">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
