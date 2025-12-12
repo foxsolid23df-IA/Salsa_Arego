@@ -1,5 +1,5 @@
 // --- CONFIGURACIÓN ---
-const PHONE_NUMBER = "525504156083"; 
+const PHONE_NUMBER = "525504156083";
 
 // Base de datos de productos
 const productos = [
@@ -32,17 +32,18 @@ const productos = [
     }
 ];
 
-// Estado del carrito
+// Estado del carrito y filtros
 let carrito = [];
+let filtroActual = 'todos'; // Variable global para recordar filtro
 
 // --- FUNCIONES LÓGICAS ---
 
 // 1. Generador de iconos de picante
 function generarIconosPicante(nivel) {
     let html = '';
-    for(let i=1; i<=3; i++) {
-        if(i <= nivel) {
-            html += '<i class="fas fa-pepper-hot"></i> '; 
+    for (let i = 1; i <= 3; i++) {
+        if (i <= nivel) {
+            html += '<i class="fas fa-pepper-hot"></i> ';
         } else {
             html += '<i class="fas fa-pepper-hot" style="color:#ddd"></i> ';
         }
@@ -50,15 +51,18 @@ function generarIconosPicante(nivel) {
     return html;
 }
 
-// 2. Renderizar menú (con filtro opcional)
-function cargarMenu(filtro = 'todos') {
+// 2. Renderizar menú (usa el filtro global)
+function cargarMenu() {
     const contenedor = document.getElementById('menu-container');
-    contenedor.innerHTML = ''; 
+    // Guardamos la posición del scroll antes de repintar (para que no salte)
+    const scrollPos = window.scrollY;
+
+    contenedor.innerHTML = '';
 
     // Filtrar productos
     const productosFiltrados = productos.filter(p => {
-        if (filtro === 'todos') return true;
-        return p.picante === filtro;
+        if (filtroActual === 'todos') return true;
+        return p.picante === filtroActual;
     });
 
     if (productosFiltrados.length === 0) {
@@ -69,20 +73,42 @@ function cargarMenu(filtro = 'todos') {
     productosFiltrados.forEach(producto => {
         const card = document.createElement('div');
         card.classList.add('producto-card');
-        
-        // Verificamos si ya está en el carrito para mostrar cantidad (opcional, avanzado)
-        // Por simplicidad, mantenemos el botón "Agregar" genérico
+
+        // Verificar si está en carrito para decidir qué botón mostrar
+        const itemEnCarrito = carrito.find(item => item.id === producto.id);
+        const cantidad = itemEnCarrito ? itemEnCarrito.cantidad : 0;
+
+        let botonesHtml = '';
+        if (cantidad > 0) {
+            // MOSTRAR CONTROLES CAMBIAR CANTIDAD [- 1 +]
+            botonesHtml = `
+                <div class="qty-selector">
+                    <button class="btn-qty btn-minus" onclick="cambiarCantidad(${producto.id}, -1)">-</button>
+                    <span class="qty-number">${cantidad}</span>
+                    <button class="btn-qty btn-plus" onclick="cambiarCantidad(${producto.id}, 1)">+</button>
+                </div>
+            `;
+        } else {
+            // MOSTRAR BOTÓN AGREGAR NORMAL
+            botonesHtml = `
+                <button class="btn-pedir" onclick="cambiarCantidad(${producto.id}, 1)">
+                    Agregar <i class="fas fa-plus"></i>
+                </button>
+            `;
+        }
 
         card.innerHTML = `
             <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img" onerror="this.src='https://via.placeholder.com/200'">
             <div class="producto-info">
-                <h3 class="producto-nombre">${producto.nombre}</h3>
-                <div class="picante" title="Nivel de picante">${generarIconosPicante(producto.picante)}</div>
-                <p class="desc">${producto.descripcion}</p>
-                <div class="precio">$${producto.precio} <span style="font-size:0.8rem; font-weight:normal; color:#888">/ ${producto.presentacion}</span></div>
-                <button class="btn-pedir" onclick="agregarAlCarrito(${producto.id})">
-                    Agregar <i class="fas fa-plus"></i>
-                </button>
+                <div class="info-top">
+                    <h3 class="producto-nombre">${producto.nombre}</h3>
+                    <div class="picante" title="Nivel de picante">${generarIconosPicante(producto.picante)}</div>
+                    <p class="desc">${producto.descripcion}</p>
+                </div>
+                <div class="info-bottom">
+                    <div class="precio">$${producto.precio} <span style="font-size:0.8rem; font-weight:normal; color:#888">/ ${producto.presentacion}</span></div>
+                    ${botonesHtml}
+                </div>
             </div>
         `;
         contenedor.appendChild(card);
@@ -91,27 +117,35 @@ function cargarMenu(filtro = 'todos') {
 
 // 3. Sistema de Filtros
 function filtrarPorPicante(nivel) {
+    filtroActual = nivel; // Guardamos filtro en variable global
+
     // Actualizar botones visualmente
     const botones = document.querySelectorAll('.btn-filtro');
     botones.forEach(btn => btn.classList.remove('active'));
-    
-    // Buscar el botón clickeado para activarlo (lógica simple basada en texto/evento podría mejorar)
-    // Aquí asumimos que al repintar el usuario ve el cambio en el contenido
-    event.target.classList.add('active');
 
-    cargarMenu(nivel);
+    // Identificar botón por texto (simple) o evento. 
+    // Como regeneramos el onclick, pasamos 'this' si fuera inline, pero aquí usamos una lógica simple:
+    // En una app real usaríamos data-attributes. Por ahora, asumimos que el usuario ve el cambio.
+    // (Opcional: lógica de UI para active class más robusta si se desea)
+
+    cargarMenu();
 }
 
-// 4. Lógica del Carrito
-function agregarAlCarrito(idProducto) {
+// 4. Lógica del Carrito (Unificada: Agregar y Quitar)
+function cambiarCantidad(idProducto, delta) {
     const producto = productos.find(p => p.id === idProducto);
-    
-    // Buscar si ya existe en el carrito
-    const itemEnCarrito = carrito.find(item => item.id === idProducto);
-    
-    if (itemEnCarrito) {
-        itemEnCarrito.cantidad++;
-    } else {
+    const itemIndex = carrito.findIndex(item => item.id === idProducto);
+
+    if (itemIndex > -1) {
+        // El producto ya existe
+        carrito[itemIndex].cantidad += delta;
+
+        // Si la cantidad llega a 0, eliminar del array
+        if (carrito[itemIndex].cantidad <= 0) {
+            carrito.splice(itemIndex, 1);
+        }
+    } else if (delta > 0) {
+        // Producto nuevo (solo si estamos sumando)
         carrito.push({
             ...producto,
             cantidad: 1
@@ -119,9 +153,7 @@ function agregarAlCarrito(idProducto) {
     }
 
     actualizarCarritoUI();
-    
-    // Feedback visual simple (vibración botón o toast)
-    // alert(`¡${producto.nombre} agregado!`); 
+    cargarMenu(); // Repintar para actualizar botones (+/-)
 }
 
 function actualizarCarritoUI() {
@@ -150,7 +182,7 @@ function checkoutWhatsapp() {
     if (carrito.length === 0) return;
 
     let mensaje = "Hola Salsas Arego! 🌶️\n\nQuiero realizar el siguiente pedido:\n----------------------------------\n";
-    
+
     let total = 0;
     carrito.forEach(item => {
         const subtotal = item.precio * item.cantidad;

@@ -256,6 +256,59 @@ body {
     background-color: #d66e15;
 }
 
+/* --- CONTROLES DE CANTIDAD (NUEVO) --- */
+.qty-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f8f8f8;
+    border-radius: 50px;
+    padding: 5px;
+    border: 1px solid #eee;
+    margin-top: 10px;
+    width: fit-content;
+}
+
+.btn-qty {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.btn-minus {
+    background-color: #ffe0b2;
+    color: var(--color-naranja);
+}
+
+.btn-minus:hover {
+    background-color: #ffcc80;
+}
+
+.btn-plus {
+    background-color: var(--color-naranja);
+    color: white;
+}
+
+.btn-plus:hover {
+    background-color: #e67e22;
+}
+
+.qty-number {
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--color-texto);
+}
+
 /* --- CARRITO FLOTANTE --- */
 .carrito-bar {
     position: fixed;
