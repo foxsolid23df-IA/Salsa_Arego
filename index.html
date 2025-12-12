@@ -57,17 +57,39 @@
             </button>
         </div>
 
+        <section id="testimonios">
+            <h2 class="section-title">Lo que dicen de nosotros</h2>
+            <div class="testimonios-grid">
+                <div class="testimonio-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="cita">"La salsa macha es adictiva, pica rico pero se disfruta. ¡Ya llevo 3 frascos!"</p>
+                    <p class="autor">- Carlos M.</p>
+                </div>
+                <div class="testimonio-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="cita">"Me recuerda mucho a cómo cocinaba mi abuela. Sabor 100% casero."</p>
+                    <p class="autor">- Ana G.</p>
+                </div>
+                <div class="testimonio-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="cita">"Excelente servicio, llegaron rápido y el empaque muy cuidado."</p>
+                    <p class="autor">- Luis R.</p>
+                </div>
+            </div>
+        </section>
+
         <section id="galeria">
             <h2 class="section-title">Antojos Arego</h2>
             <p class="text-center">Así disfrutan nuestros clientes:</p>
             <div class="galeria-grid">
                 <img src="https://via.placeholder.com/300x300/ffcc00/fff?text=Tacos" class="galeria-item"
-                    alt="Tacos con salsa">
+                    alt="Tacos con salsa" onclick="abrirLightbox(this.src)">
                 <img src="https://via.placeholder.com/300x300/green/fff?text=Huevos" class="galeria-item"
-                    alt="Huevos al gusto">
-                <img src="https://via.placeholder.com/300x300/red/fff?text=Carne" class="galeria-item"
-                    alt="Carne asada">
-                <img src="https://via.placeholder.com/300x300/orange/fff?text=Botana" class="galeria-item" alt="Botana">
+                    alt="Huevos al gusto" onclick="abrirLightbox(this.src)">
+                <img src="https://via.placeholder.com/300x300/red/fff?text=Carne" class="galeria-item" alt="Carne asada"
+                    onclick="abrirLightbox(this.src)">
+                <img src="https://via.placeholder.com/300x300/orange/fff?text=Botana" class="galeria-item" alt="Botana"
+                    onclick="abrirLightbox(this.src)">
             </div>
         </section>
 
@@ -97,6 +119,13 @@
     <a href="#" onclick="contactarGeneral()" class="float-wa">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox" onclick="cerrarLightbox()">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="img-lightbox">
+        <div class="lightbox-caption"></div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>

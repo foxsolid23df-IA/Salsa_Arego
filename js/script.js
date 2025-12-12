@@ -211,6 +211,21 @@ function abrirWhatsapp(msg) {
     window.open(url, '_blank');
 }
 
+// 7. Lightbox (Galería Interactiva)
+function abrirLightbox(src) {
+    const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('img-lightbox');
+    img.src = src;
+    lightbox.classList.add('active'); // Usamos clase active para flex
+    lightbox.style.display = "flex"; // Forzar display flex
+}
+
+function cerrarLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    lightbox.style.display = "none";
+}
+
 // --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
     cargarMenu(); // Carga inicial
