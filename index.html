@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salsas Arego - Menú Virtual</title>
     <meta name="description" content="Menú oficial de Salsas Arego. Sabores caseros y familiares.">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-    <header>
-        <div class="logo-container">
-            <img src="img/logo.jpg" alt="Familia Arego" class="logo-img" onerror="this.src='https://via.placeholder.com/150'">
+    <header class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="logo-container">
+                <img src="img/logo.jpg" alt="Familia Arego" class="logo-img"
+                    onerror="this.src='https://via.placeholder.com/150'">
+            </div>
+            <h1>Salsas Arego</h1>
+            <p class="slogan">Salsa Casera con el toque familiar</p>
+            <a href="#catalogo" class="btn-hero">Ver Menú <i class="fas fa-chevron-down"></i></a>
         </div>
-        <h1>Salsas Arego</h1>
-        <p class="slogan">Salsa Casera con el toque familiar</p>
     </header>
 
     <main class="container">
 
         <section id="catalogo">
             <h2 class="section-title">Nuestros Sabores</h2>
-            
+
             <!-- Filtros de Picante -->
             <div class="filtros-container">
                 <button class="btn-filtro active" onclick="filtrarPorPicante('todos')">Todos</button>
@@ -54,9 +61,12 @@
             <h2 class="section-title">Antojos Arego</h2>
             <p class="text-center">Así disfrutan nuestros clientes:</p>
             <div class="galeria-grid">
-                <img src="https://via.placeholder.com/300x300/ffcc00/fff?text=Tacos" class="galeria-item" alt="Tacos con salsa">
-                <img src="https://via.placeholder.com/300x300/green/fff?text=Huevos" class="galeria-item" alt="Huevos al gusto">
-                <img src="https://via.placeholder.com/300x300/red/fff?text=Carne" class="galeria-item" alt="Carne asada">
+                <img src="https://via.placeholder.com/300x300/ffcc00/fff?text=Tacos" class="galeria-item"
+                    alt="Tacos con salsa">
+                <img src="https://via.placeholder.com/300x300/green/fff?text=Huevos" class="galeria-item"
+                    alt="Huevos al gusto">
+                <img src="https://via.placeholder.com/300x300/red/fff?text=Carne" class="galeria-item"
+                    alt="Carne asada">
                 <img src="https://via.placeholder.com/300x300/orange/fff?text=Botana" class="galeria-item" alt="Botana">
             </div>
         </section>
@@ -90,4 +100,5 @@
 
     <script src="js/script.js"></script>
 </body>
+
 </html>

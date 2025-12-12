@@ -1,10 +1,13 @@
 /* --- VARIABLES Y CONFIGURACIÓN GLOBAL --- */
 :root {
-    --color-naranja: #F58220; /* Color exacto de la etiqueta */
-    --color-verde: #006837;   /* Color del listón */
-    --color-crema: #FFF8E1;   /* Fondo suave */
+    --color-naranja: #F58220;
+    /* Color exacto de la etiqueta */
+    --color-verde: #006837;
+    /* Color del listón */
+    --color-crema: #FFF8E1;
+    /* Fondo suave */
     --color-texto: #333333;
-    --sombra-card: 0 4px 15px rgba(0,0,0,0.08);
+    --sombra-card: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 body {
@@ -13,50 +16,108 @@ body {
     margin: 0;
     padding: 0;
     color: var(--color-texto);
-    padding-bottom: 90px; /* Espacio para que el botón flotante no tape contenido */
+    padding-bottom: 90px;
+    overflow-x: hidden;
+    /* Evitar scroll horizontal por animaciones */
 }
 
-/* --- HEADER --- */
-header {
-    background-color: white;
-    text-align: center;
-    padding: 25px 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    border-bottom: 6px solid var(--color-naranja);
+/* --- HERO SECTION --- */
+.hero-section {
     position: relative;
+    height: 70vh;
+    /* Ocupa el 70% de la altura de la pantalla inicial */
+    min-height: 500px;
+    background-image: url('../img/hero-bg.png');
+    /* Asegurate de que la imagen exista */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* Efecto Parallax simple */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    border-bottom: 8px solid var(--color-naranja);
 }
 
-.logo-img {
-    width: 160px;  /* Tamaño visual en pantalla (más grande que antes) */
-    height: 160px; /* Mantiene la proporción cuadrada */
-    /* border-radius: 50%;  <-- SE ELIMINÓ ESTA LÍNEA */
-    object-fit: contain; /* 'contain' asegura que se vea TODO el diseño cuadrado sin cortes */
-    /* border: 4px solid var(--color-verde); <-- SE ELIMINÓ ESTA LÍNEA */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Oscuro para leer texto */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    animation: slideDown 1s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.hero-content .logo-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    /* Redondo en el hero queda mejor */
+    border: 4px solid white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content h1 {
+    color: white;
+    font-size: 3rem;
     margin-bottom: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Opcional: Una sombra suave para que resalte */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-h1 {
-    color: var(--color-naranja);
-    margin: 5px 0;
-    font-weight: 800;
+.hero-content .slogan {
+    color: #f1f1f1;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.btn-hero {
+    display: inline-block;
+    background-color: var(--color-naranja);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 1.8rem;
-    letter-spacing: 1px;
+    transition: transform 0.3s, background 0.3s;
+    box-shadow: 0 4px 10px rgba(245, 130, 32, 0.4);
 }
 
-.slogan {
-    font-size: 0.95rem;
-    color: #666;
-    margin: 0;
-    font-style: italic;
+.btn-hero:hover {
+    transform: translateY(-3px);
+    background-color: white;
+    color: var(--color-naranja);
 }
 
 /* --- CONTENEDOR PRINCIPAL --- */
 .container {
-    max-width: 600px; /* Ancho optimizado para vista móvil */
+    max-width: 1200px;
+    /* Ancho ampliado para desktop */
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 .section-title {
@@ -68,7 +129,11 @@ h1 {
     font-size: 1.4rem;
 }
 
-.text-center { text-align: center; color: #777; margin-bottom: 20px;}
+.text-center {
+    text-align: center;
+    color: #777;
+    margin-bottom: 20px;
+}
 
 /* --- FILTROS DE PICANTE --- */
 .filtros-container {
@@ -90,7 +155,8 @@ h1 {
     color: #666;
 }
 
-.btn-filtro.active, .btn-filtro:hover {
+.btn-filtro.active,
+.btn-filtro:hover {
     background-color: var(--color-naranja);
     color: white;
     border-color: var(--color-naranja);
@@ -111,8 +177,15 @@ h1 {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .producto-card:hover {
@@ -191,7 +264,7 @@ h1 {
     width: 100%;
     background: white;
     padding: 15px 20px;
-    box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -205,8 +278,13 @@ h1 {
 }
 
 @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
 
 .carrito-info {
@@ -242,7 +320,8 @@ h1 {
 
 /* Se mueve el boton de WA general arriba */
 .float-wa {
-    bottom: 90px; /* Ajuste para no chocar con el carrito */
+    bottom: 90px;
+    /* Ajuste para no chocar con el carrito */
 }
 
 
@@ -259,7 +338,7 @@ h1 {
     object-fit: cover;
     border-radius: 12px;
     border: 2px solid white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* --- SUBIR FOTO --- */
@@ -267,7 +346,8 @@ h1 {
     margin-top: 40px;
     background: white;
     border-radius: 16px;
-    padding: 5px; /* Borde interno simulado */
+    padding: 5px;
+    /* Borde interno simulado */
     background-image: linear-gradient(45deg, var(--color-naranja), var(--color-verde));
 }
 
@@ -309,7 +389,9 @@ h1 {
     transition: color 0.3s;
 }
 
-.social-icons a:hover { color: var(--color-naranja); }
+.social-icons a:hover {
+    color: var(--color-naranja);
+}
 
 .copyright {
     font-size: 0.7rem;
@@ -322,21 +404,24 @@ h1 {
     position: fixed;
     width: 60px;
     height: 60px;
-    bottom: 20px; 
+    bottom: 20px;
     right: 20px;
-    background-color: #25d366; /* Verde Whatsapp */
+    background-color: #25d366;
+    /* Verde Whatsapp */
     color: #FFF;
     border-radius: 50px;
     text-align: center;
     font-size: 32px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    z-index: 90; /* Detras del carrito si se abre */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 90;
+    /* Detras del carrito si se abre */
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     transition: transform 0.3s;
 }
+
 /* Cuando el carrito está visible, subimos el botón flotante */
 body.has-cart .float-wa {
     bottom: 100px;
@@ -347,19 +432,82 @@ body.has-cart .float-wa {
 }
 
 /* --- MEDIA QUERIES (Ajustes para pantallas muy pequeñas) --- */
-@media (max-width: 380px) {
+/* --- RESPONSIVE GRID (Desktop) --- */
+#menu-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* Ajustes para tarjetas en Grid */
+.producto-card {
+    flex-direction: column;
+    /* Siempre vertical en el grid */
+    height: 100%;
+    /* Igualar alturas */
+}
+
+.producto-img {
+    width: 100%;
+    height: 200px;
+    /* Altura fija para que todas se vean igual */
+}
+
+.producto-info {
+    width: 100%;
+    padding: 20px;
+    flex-grow: 1;
+    /* Ocupar espacio restante */
+    justify-content: space-between;
+    /* Botón siempre abajo */
+}
+
+/* --- MEDIA QUERIES --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    /* En móvil regresamos a tarjeta horizontal si se prefiere, o mantenemos vertical */
+    #menu-container {
+        grid-template-columns: 1fr;
+        /* Una sola columna */
+    }
+
+    .producto-card {
+        flex-direction: row;
+        /* Horizontal en móvil para ahorrar scroll vertical */
+    }
+
+    .producto-img {
+        width: 40%;
+        height: auto;
+        min-height: 150px;
+    }
+
+    .producto-info {
+        width: 60%;
+        padding: 15px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
     .producto-card {
         flex-direction: column;
+        /* Vertical en pantallas muy pequeñas */
     }
+
     .producto-img {
         width: 100%;
         height: 180px;
     }
+
     .producto-info {
         width: 100%;
-        padding: 20px;
-    }
-    .btn-pedir {
-        width: 100%; /* Botón ancho completo en móvil muy pequeño */
     }
 }
