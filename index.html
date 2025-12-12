@@ -25,10 +25,30 @@
 
         <section id="catalogo">
             <h2 class="section-title">Nuestros Sabores</h2>
+            
+            <!-- Filtros de Picante -->
+            <div class="filtros-container">
+                <button class="btn-filtro active" onclick="filtrarPorPicante('todos')">Todos</button>
+                <button class="btn-filtro" onclick="filtrarPorPicante(1)">🔥 Suave</button>
+                <button class="btn-filtro" onclick="filtrarPorPicante(2)">🔥🔥 Medio</button>
+                <button class="btn-filtro" onclick="filtrarPorPicante(3)">🔥🔥🔥 Intenso</button>
+            </div>
+
             <div id="menu-container">
                 <p style="text-align:center">Cargando menú...</p>
             </div>
         </section>
+
+        <!-- Barra Flotante del Carrito (Oculta por defecto) -->
+        <div id="carrito-flotante" class="carrito-bar hidden">
+            <div class="carrito-info">
+                <span id="cant-items">0 items</span>
+                <span id="total-precio">$0</span>
+            </div>
+            <button class="btn-checkout" onclick="checkoutWhatsapp()">
+                Pedir por WhatsApp <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
 
         <section id="galeria">
             <h2 class="section-title">Antojos Arego</h2>
